@@ -163,9 +163,9 @@ def get_bipartite_graph(mol_graph_1, mol_graph_2):
     #     adjacency_matrix[edge[0], edge[1]] = 1
     #     adjacency_matrix[edge[1], edge[0]] = 1
     # node_importance = betweenness_centrality(adjacency_matrix)
-    # # 设置重要性阈值
+
     # threshold = 0.1
-    # # 根据阈值删除不重要的节点
+
     # nodes_to_remove = [node for node, importance in enumerate(node_importance) if importance < threshold]
     # x1 =[x for x in x1 if x not in nodes_to_remove]
     #
@@ -175,9 +175,9 @@ def get_bipartite_graph(mol_graph_1, mol_graph_2):
     #     adjacency_matrix[edge[0], edge[1]] = 1
     #     adjacency_matrix[edge[1], edge[0]] = 1
     # node_importance = betweenness_centrality(adjacency_matrix)
-    # # 设置重要性阈值
+
     # threshold = 0.1
-    # # 根据阈值删除不重要的节点
+
     # nodes_to_remove = [node for node, importance in enumerate(node_importance) if importance < threshold]
     # x2 = [x for x in x2 if x not in nodes_to_remove]
 
@@ -274,7 +274,7 @@ class DrugDataset(Dataset):
                 positive_samples_data.append([h, t])
             with open('data/shullfdrugdata5.csv', 'a', newline='') as csvfile:
                 csv_writer = csv.writer(csvfile)
-                # 检查文件是否为空，如果不为空则不写入标题行
+
                 if csvfile.tell() == 0:
                     csv_writer.writerow(['head', 'tail'])
                 csv_writer.writerows(positive_samples_data)
