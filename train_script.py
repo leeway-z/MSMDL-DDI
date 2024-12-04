@@ -163,7 +163,7 @@ def train(model, train_data_loader, val_data_loader, loss_fn, optimizer, n_epoch
                 loss, loss_p, loss_n = loss_fn(p_score, n_score)
                 val_loss += loss.item() * len(p_score)
 
-                # 提取正样本的预测概率
+
                 pos_probas_pred = probas_pred[:len(p_score)]
                 val_probas_pred_truth.append(pos_probas_pred)
 
@@ -174,16 +174,6 @@ def train(model, train_data_loader, val_data_loader, loss_fn, optimizer, n_epoch
             val_probas_pred = np.concatenate(val_probas_pred)
             val_probas_pred_truth = np.concatenate(val_probas_pred_truth)
             positive_samples_data = []
-            # if (i == 30 or i == 20):
-            #     for j in val_probas_pred_truth:
-            #         positive_samples_data.append([j, i])
-            #     # 循环结束后，一次性写入CSV文件
-            #     with open(csv_file_name, 'a', newline='') as csvfile:
-            #         csv_writer = csv.writer(csvfile)
-            #         # 检查文件是否为空，如果不为空则不写入标题行
-            #         if csvfile.tell() == 0:
-            #             csv_writer.writerow(['predicted_probability', 'epoch'])
-            #         csv_writer.writerows(positive_samples_data)
             val_ground_truth = np.concatenate(val_ground_truth)
             val_acc, val_auc_roc, val_auc_prc, val_f1_score, val_ap = do_compute_metrics(val_probas_pred,
                                                                                          val_ground_truth)
@@ -195,13 +185,9 @@ def train(model, train_data_loader, val_data_loader, loss_fn, optimizer, n_epoch
         print(f'Epoch: {i} ({time.time() - start:.4f}s), train_loss: {train_loss:.4f}, val_loss: {val_loss:.4f},'
         f' train_acc: {train_acc:.4f}, val_acc:{val_acc:.4f}')
         print(f'\t\ttrain_roc: {train_auc_roc:.4f}, val_roc: {val_auc_roc:.4f}, train_auprc: {train_auc_prc:.4f}, val_auprc: {val_auc_prc:.4f}, train_f1: {train_f1_score:.4f}, val_f1:　{val_f1_score:.4f},train_ap:{train_ap:.4f},val_ap:{val_ap:.4f}')
-        # print(f'{val_acc:.4f} {val_auc_roc:.4f} {val_auc_prc:.4f} {val_f1_score:.4f}')
-        # 查看整个程序执行期间使用的最大内存量
-        # print("最大内存使用量:", torch.cuda.max_memory_allocated()/1024**3)
+        
     print('End at', datetime.today())
-    # model_path = 'data/ddi-model-inductive.pt'
-    # torch.save(model.state_dict(), model_path)
-    # print("model has been saved to %s." % (model_path))
+
 
 
 model = models.MSMDL_DDI(n_atom_feats, n_atom_hid, kge_dim, rel_total, num_layers, weight_conv='WeightConv1',
